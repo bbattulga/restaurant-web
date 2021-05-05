@@ -3,7 +3,10 @@ import Head from "next/head";
 import Navbar from "../components/navbar";
 import HeroSection from "../home-sections/hero-section";
 import MenuSection from "../home-sections/menu-section";
+import BookTableSection from "../home-sections/reservation-section";
 import AboutSection from "../home-sections/about-section";
+import ChefSection from "../home-sections/staff-section";
+import CustomerSection from "../home-sections/customer-section";
 import Services from "../home-sections/services-section";
 import BlogSection from "../home-sections/blog-section";
 import ContactSection from "../home-sections/contact-section";
@@ -16,10 +19,11 @@ export default function Home(props: HomeProps) {
       <Navbar />
       <HeroSection />
       <AboutSection />
-      <MenuSection />
       <Services />
-      <BlogSection />
-      <ContactSection />
+      <MenuSection />
+      <BookTableSection />
+      <ChefSection />
+      <CustomerSection />
       <Footer />
     </div>
   );

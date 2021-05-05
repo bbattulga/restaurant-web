@@ -1,17 +1,14 @@
 import React from "react";
 import { Parallax } from "react-parallax";
-
-import SectionTitle from "../components/section-title";
 import Section from "../components/section";
-import Paragraph from "../components/paragraph";
 
-export default function About() {
+const About: React.FC = () => {
   return (
     <>
-      <Section>
-        <SectionTitle>Appetizer Restaurant</SectionTitle>
-        <div className="container">
-          <Paragraph className="text-center">
+      <Section className="p-x-0 mb-20">
+        <Section.Title title="Appetizer Restaurant" subtitle="About" />
+        <div className="max-w-2xl -mt-12">
+          <Section.Paragraph className="text-center">
             On her way she met a copy. The copy warned the Little Blind Text,
             that where it came from it would have been rewritten a thousand
             times and everything that was left from its origin would be the word
@@ -19,31 +16,36 @@ export default function About() {
             own, safe country. A small river named Duden flows by their place
             and supplies it with the necessary regelialia. It is a paradisematic
             country, in which roasted parts of sentences fly into your mouth.
-          </Paragraph>
+          </Section.Paragraph>
         </div>
       </Section>
-      <div className="w-full">
-        <Parallax bgImage="/images/bg5.jpeg" strength={100}>
-          <div className="flex flex-col items-center md:flex-wrap md:flex-row w-full justify-center">
-            <div className="flex gap-3 items-center p-5 mb-5">
-              <h4 className="text-4xl">18</h4>
-              <p>Years of experience</p>
+      <div>
+        <div className="w-full">
+          <Parallax
+            bgImage="/images/breakfast-coffee.jpeg"
+            strength={300}
+            bgStyle={{ height: "30vh" }}
+          >
+            <div className="flex flex-col h-96 items-center md:flex-wrap md:flex-row w-full justify-around">
+              <FeatureItem title={"18"} subtitle="Years of experience" />
+              <FeatureItem title={"15000"} subtitle="Happy customers" />
+              <FeatureItem title={"20"} subtitle="Monus" />
+              <FeatureItem title={"20"} subtitle="Staffs" />
             </div>
-            <div className="flex flex-wrap gap-3 items-center p-5 mb-5">
-              <h4 className="text-4xl">15000</h4>
-              <p>Happy customers</p>
-            </div>
-            <div className="flex flex-wrap gap-3 items-center p-5 mb-5">
-              <h4 className="text-4xl">20</h4>
-              <p>Monus</p>
-            </div>
-            <div className="flex flex-wrap gap-3 items-center p-5 mb-5">
-              <h4 className="text-4xl">20</h4>
-              <p>Staffs</p>
-            </div>
-          </div>
-        </Parallax>
+          </Parallax>
+        </div>
       </div>
     </>
   );
-}
+};
+
+const FeatureItem: React.FC<{ title: string; subtitle: string }> = (props) => {
+  return (
+    <div className="flex flex-col flex-wrap gap-3 items-center p-5 mb-5">
+      <h4 className="text-5xl font-bold text-black">{props.title}</h4>
+      <p className="text-black text-2xl">{props.subtitle}</p>
+    </div>
+  );
+};
+
+export default About;

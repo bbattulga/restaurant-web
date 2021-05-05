@@ -5,11 +5,22 @@ interface FoodCardProps {
 }
 export default function FoodCard(props: FoodCardProps) {
   return (
-    <div className="p-5 flex flex-row">
-      <img src="https://picsum.photos/100/100" alt="" />
-      <div className="flex flex-col">
-        <h4>{props.food.title}</h4>
-        <p>{props.food.subtitle}</p>
+    <div className="relative group transition duration-300 hover:bg-yellow-500 grid grid-cols-12 gap-3 w-full justify-around cursor-pointer border-2 p-6 mb-3 rounded-md">
+      <div className="col-span-3 sm:col-span-4">
+        <img
+          className="rounded-full w-24 h-24"
+          src="/images/food1.jpeg"
+          alt=""
+        />
+      </div>
+      <div className="col-span-7 sm:col-span-6">
+        <h4 className="text-2xl flex-1 mb-5">{props.food.title}</h4>
+        <p className="text-xs">{props.food.subtitle}</p>
+      </div>
+      <div className="col-span-2  group-hover:border-white">
+        <p className="font-bold text-center text-xl border-b-2 border-yellow-500 group-hover:border-white group-hover:text-white">
+          {props.food.price}
+        </p>
       </div>
     </div>
   );
