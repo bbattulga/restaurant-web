@@ -46,8 +46,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <p className="text-center">
-        Copyright ©2021 All rights reserved | Developed by John Doe
+      <p className="text-center mt-8 mb-8">
+        Copyright ©2021 All rights reserved | Developed by Battulga
       </p>
     </footer>
   );

@@ -26,7 +26,7 @@ const ServicesSection = (props: ServicesProps) => {
     },
   ]);
   return (
-    <Section className="bg-gray-50">
+    <Section id={"service"} className="bg-gray-50">
       <Section.Title title="Catering Services" subtitle="Services" />
       <div className="w-full flex flex-col sm:flex-wrap sm:flex-row sm:gap-12 justify-center">
         {services.map((service) => (

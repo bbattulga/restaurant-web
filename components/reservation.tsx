@@ -10,10 +10,6 @@ export default function Reservation() {
       hint: "Your Name",
     },
     {
-      label: "Email",
-      hint: "Your Email",
-    },
-    {
       label: "Phone",
       hint: "Phone",
     },
@@ -24,10 +20,6 @@ export default function Reservation() {
     {
       label: "Time",
       hint: "time",
-    },
-    {
-      label: "Person",
-      hint: "Person",
     },
   ]);
   return (

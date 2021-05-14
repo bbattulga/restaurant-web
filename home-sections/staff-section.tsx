@@ -6,28 +6,58 @@ import StaffCard from "../components/staff-card";
 const StaffSection: React.FC = () => {
   const [staffs, setStaffs] = useState<IStaff[]>([]);
   useEffect(() => {
-    let staffs = [];
-    for (let i = 0; i < 4; i++) {
-      staffs.push({
-        name: `John ${i}`,
-        role: `Role ${i}`,
+    let staffs: IStaff[] = [
+      {
+        name: "John Smooth",
+        role: "Restaurant Owner",
+        image: "/images/chef1.jpeg",
         description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, maxime.`,
         facebook: "",
         google: "",
         instagram: "",
         twitter: "",
-      });
-    }
+      },
+      {
+        name: "Kharl Branyt",
+        role: "Head chef",
+        image: "/images/chef2.jpeg",
+        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, maxime.`,
+        facebook: "",
+        google: "",
+        instagram: "",
+        twitter: "",
+      },
+      {
+        name: "Luke Simon",
+        role: "Chef",
+        image: "/images/chef3.jpeg",
+        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, maxime.`,
+        facebook: "",
+        google: "",
+        instagram: "",
+        twitter: "",
+      },
+      {
+        name: "Josh Brown",
+        role: "Chef",
+        image: "/images/chef4.jpeg",
+        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, maxime.`,
+        facebook: "",
+        google: "",
+        instagram: "",
+        twitter: "",
+      },
+    ];
     setStaffs(staffs);
   }, []);
   return (
-    <Section>
+    <Section id={"staff"} className="pb-20">
       <Section.Title title="Our Master Chef" subtitle="Chef" />
-      <div className="flex w-full flex-wrap flex-row justify-around gap-3">
+      <div className="flex w-full flex-wrap flex-row justify-around gap-3 pb-10">
         {staffs.map((staff) => (
           <StaffCard
             title={staff.name}
-            imageUrl={"https://picsum.photos/400/400"}
+            imageUrl={staff.image}
             subtitle={staff.role}
             description={staff.description}
             facebook={staff.facebook}

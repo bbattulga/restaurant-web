@@ -13,23 +13,23 @@ interface StaffCardProps {
 const StaffCard: React.FC<StaffCardProps> = (props) => {
   return (
     <div>
-      <img className="w-64 h-64 rounded-md" src={props.imageUrl} />
+      <img className="w-64 h-64 rounded-md object-cover" src={props.imageUrl} />
       <div className="my-5">
         <h4 className="text-2xl text-black">{props.title}</h4>
         <p className="text-gray-400 mt-1">{props.subtitle}</p>
       </div>
       <p className="w-64 mb-5">{props.description}</p>
       <div className="flex flex-row gap-3 text-yellow-400">
-        <a>
+        <a className="cursor-pointer">
           <i className="fab fa-facebook-f" />
         </a>
-        <a>
+        <a className="cursor-pointer">
           <i className="fab fa-google" />
         </a>
-        <a>
+        <a className="cursor-pointer">
           <i className="fab fa-twitter" />
         </a>
-        <a>
+        <a className="cursor-pointer">
           <i className="fab fa-instagram" />
         </a>
       </div>

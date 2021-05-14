@@ -5,7 +5,7 @@ import MapSection from "./map-section";
 
 const BookTableSection = () => {
   return (
-    <Section>
+    <Section id={"reservation"}>
       <div className="flex flex-col sm:flex-row w-full items-end gap-5 mb-10">
         <div className="flex flex-1 max-w-4xl w-full">
           <Reservation />

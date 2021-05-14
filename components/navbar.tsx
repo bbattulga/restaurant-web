@@ -1,106 +1,117 @@
 import React, { useEffect, useState } from "react";
 import * as Icons from "@heroicons/react/solid";
+import Scrollspy from "react-scrollspy";
 import classNames from "classnames";
 
+type NavbarLink = {
+  title: string;
+  href: string;
+};
+
+const links: NavbarLink[] = [
+  {
+    title: "Home",
+    href: "#home",
+  },
+  {
+    title: "About",
+    href: "#about",
+  },
+  {
+    title: "Services",
+    href: "#service",
+  },
+  {
+    title: "Menu",
+    href: "#menu",
+  },
+  {
+    title: "Contact",
+    href: "#reservation",
+  },
+];
+
 export default function Navbar() {
-  const [isActive, setIsActive] = useState(false);
-  const [isNavVisible, setIsNavVisible] = useState(true);
+  const [navDark, setNavDark] = useState(false);
+  const [active, setActive] = useState(false);
+
+  const onScroll = () => {
+    if (window.pageYOffset >= window.innerHeight) {
+      setNavDark(true);
+    } else if (window.pageYOffset <= window.innerHeight) {
+      setNavDark(false);
+    }
+  };
+
   useEffect(() => {
-    let lastOffsetY = 0;
-    const onScroll = () => {
-      let currentOffsetY = window.pageYOffset;
-      if (window.pageYOffset < lastOffsetY) {
-        // scrolled up
-        setIsActive(true);
-        console.log("scrolled up");
-      } else {
-        // scrolled down
-        setIsNavVisible(false);
-        console.log("scrolled down");
-      }
-      lastOffsetY = currentOffsetY;
-    };
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("listener", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
   return (
     <nav
       className={classNames(
-        "hidden sm:block w-screen p-3 rounded-sm bg-black",
-        {
-          "top-0": isNavVisible,
-          "-top-full": !isNavVisible,
-        }
+        "fixed text-white flex top-0 w-screen p-5 bg-black md:bg-transparent transition duration-300 z-50",
+        { "md:bg-black": navDark }
       )}
     >
-      <div className="w-full flex justify-between items-center">
-        {/* brand */}
-        <div className="text-white text-3xl font-black">Appetizer</div>
-        {/* nav */}
-        <div className="flex flex-row">
-          <div className="flex flex-row text-white">
-            <ul
-              className={classNames(
-                "flex items-center mr-5 space-x-5 flex-row text-white",
-                {}
-              )}
-            >
-              <li>
-                <a href="#">Home</a>
-              </li>
-              <li>
-                <a href="#">About</a>
-              </li>
-              <li>
-                <a href="#">Services</a>
-              </li>
-              <li>
-                <a href="#">Contact</a>
-              </li>
-            </ul>
-          </div>
-          {/* header CTA */}
-          <div className="flex">
-            <a
-              href="#"
-              className=" p-3 text-center rounded-md font-bold bg-yellow-400 text-white"
-            >
-              Book a table
-            </a>
-          </div>
+      <div className="relative w-full flex justify-between flex-col md:flex-row md:items-center">
+        <div className="font-black text-4xl w-full">Appetizer</div>
+        <div
+          className={classNames(
+            "flex flex-col md:flex-row md:w-full md:justify-end md:gap-8 md:h-auto md:items-center md:mr-8 transition-all duration-300 overflow-hidden",
+            {
+              "flex-row": !active,
+            },
+            {
+              "h-0": !active,
+            },
+            {
+              "h-full": active,
+            }
+          )}
+        >
+          <Scrollspy
+            items={links.map((l) => l.href.slice(1))}
+            className="gap-5 flex flex-col md:flex-row"
+            currentClassName="text-yellow-400 p-3 md:p-0 pb-5"
+          >
+            {links.map((link) => (
+              <a
+                key={link.href + link.title}
+                href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document
+                    .getElementById(link.href.slice(1))
+                    .scrollIntoView({ behavior: "smooth", block: "start" });
+                  setActive(false);
+                }}
+                className="hover:text-yellow-400 p-3 md:p-0 last-child:mb-5"
+              >
+                {link.title}
+              </a>
+            ))}
+          </Scrollspy>
+          <a
+            href="#reservation"
+            className="bg-yellow-400  fond-bold p-3 rounded-sm"
+          >
+            Book A Table
+          </a>
         </div>
       </div>
-      {/* Mobile nav */}
-      <div className="sm:hidden">
-        <div className={classNames("flex justify-between")}>
-          <img
-            className={classNames("h-5 w-5")}
-            src="https://picsum.photos/50/50"
+      <div className="absolute top-5 right-5 md:hidden">
+        {active ? (
+          <Icons.XIcon
+            className="w-10 h-10"
+            onClick={() => setActive(!active)}
           />
-          <div className="text-white" onClick={() => setIsActive(!isActive)}>
-            {<Icons.MenuIcon className="text-white h-5 w-5" />}
-          </div>
-        </div>
-        <div className={classNames({ "mt-5": isActive })}>
-          <ul
-            className={classNames("flex space-y-5 flex-col text-white", {
-              hidden: !isActive,
-            })}
-          >
-            <li>
-              <a href="#">Home</a>
-            </li>
-            <li>
-              <a href="#">About</a>
-            </li>
-            <li>
-              <a href="#">Services</a>
-            </li>
-            <li>
-              <a href="#">Contact</a>
-            </li>
-          </ul>
-        </div>
+        ) : (
+          <Icons.MenuIcon
+            className="w-10 h-10"
+            onClick={() => setActive(!active)}
+          />
+        )}
       </div>
     </nav>
   );

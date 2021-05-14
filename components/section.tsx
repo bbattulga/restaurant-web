@@ -3,13 +3,15 @@ import classnames from "classnames";
 
 interface SectionProps {
   children?: any;
+  id?: string;
   className?: string;
 }
 export default function Section(props: SectionProps) {
   return (
     <section
+      id={props.id}
       className={classnames(
-        "flex flex-col w-full items-center p-5",
+        "flex flex-col w-full items-center p-5 pb-20",
         props.className
       )}
     >
@@ -26,7 +28,7 @@ interface SectionTitleProps {
 
 Section.Title = (props: SectionTitleProps) => {
   return (
-    <div className={classnames("mt-5 mb-20")}>
+    <div className={classnames("mb-20")}>
       <p
         className={classnames("relative transform translate-y-16 z-10", {
           "text-center": props.textCenter ?? true,
@@ -44,7 +46,7 @@ Section.Title = (props: SectionTitleProps) => {
       <h2
         className={classnames(
           { "text-center": props.textCenter ?? true },
-          "relative text-5xl font-black leading-none z-50"
+          "relative text-5xl font-black leading-none z-40"
         )}
       >
         {props.title}

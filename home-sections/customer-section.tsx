@@ -1,5 +1,18 @@
 import React, { useEffect, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
+import {
+  Dots,
+  slidesToShowPlugin,
+  autoplayPlugin,
+} from "@brainhubeu/react-carousel";
 import classnames from "classnames";
+const Carousel = dynamic(
+  () => {
+    return import("@brainhubeu/react-carousel");
+  },
+  { ssr: false }
+);
+import "@brainhubeu/react-carousel/lib/style.css";
 
 import Section from "../components/section";
 import CustomerCard from "../components/customer-card";
@@ -7,7 +20,7 @@ import CustomerCard from "../components/customer-card";
 const PAGINATION = 3;
 const CustomerSection: React.FC = () => {
   const [customers, setCustomers] = useState<ICustomer[]>([]);
-  const [paginationIndex, setPaginationIndex] = useState(0);
+  const [dot, setDot] = useState(0);
   useEffect(() => {
     let customers = [];
     for (let i = 0; i < 10; i++) {
@@ -22,30 +35,37 @@ const CustomerSection: React.FC = () => {
     setCustomers(customers);
   }, []);
 
-  const visibleCustomers = useMemo(() => {
-    return customers.slice(
-      Math.max(paginationIndex, 0),
-      Math.min(paginationIndex + PAGINATION, customers.length)
-    );
-  }, [customers, paginationIndex]);
-
-  const paginationDots = useMemo<number[]>(() => {
-    let dots = [];
-    let lim = customers.length - PAGINATION + 1;
-    for (let i = 0; i < lim; i++) {
-      dots.push(i);
-    }
-    return dots;
-  }, [customers]);
-  const handlePagination = (idx: number) => {
-    setPaginationIndex(idx);
-  };
-
   return (
-    <Section className="bg-gray-50">
+    <Section id={"customer"} className="bg-gray-50">
       <Section.Title title="Happy Customer" subtitle="Testinomy" />
-      <div className="flex w-screen p-10 flex-nowrap justify-center overflow-x-auto gap-x-20">
-        {visibleCustomers.map((customer) => (
+      <Carousel
+        value={dot}
+        onChange={(v) => setDot(v)}
+        plugins={[
+          "infinite",
+          {
+            resolve: slidesToShowPlugin,
+            options: {
+              numberOfSlides: 3,
+            },
+          },
+        ]}
+        breakpoints={{
+          768: {
+            plugins: [
+              "arrows",
+              "infinite",
+              {
+                resolve: slidesToShowPlugin,
+                options: {
+                  numberOfSlides: 1,
+                },
+              },
+            ],
+          },
+        }}
+      >
+        {customers.map((customer) => (
           <CustomerCard
             key={customer.id}
             title={customer.name}
@@ -53,16 +73,13 @@ const CustomerSection: React.FC = () => {
             description={customer.lorem}
           />
         ))}
-      </div>
-      <div className="flex flex-row gap-3">
-        {paginationDots.map((p, i) => (
-          <i
-            className={classnames("fas fa-circle text-gray-400 text-xs", {
-              "text-yellow-400": i == paginationIndex,
-            })}
-            onClick={() => handlePagination(i)}
-          />
-        ))}
+      </Carousel>
+      <div className="mt-16">
+        <Dots
+          value={dot}
+          onChange={(v) => setDot(v)}
+          number={customers.length}
+        />
       </div>
     </Section>
   );

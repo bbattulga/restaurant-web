@@ -26,7 +26,7 @@ const MenuSection: React.FC = () => {
     }
   }, []);
   return (
-    <Section>
+    <Section id={"menu"}>
       <Section.Title title="Our Menu" subtitle="Specialties" />
       <div className="grid sm:grid-cols-2 gap-6 lg:grid-cols-3 2xl:grid-cols-4">
         {foodSections.map((section) => {

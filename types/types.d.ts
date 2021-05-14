@@ -17,6 +17,7 @@ interface IService{
 interface IStaff{
     name: string;
     role: string;
+    image?: string;
     description: string;
     facebook: string;
     twitter: string;

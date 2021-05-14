@@ -5,7 +5,7 @@ import Section from "../components/section";
 const About: React.FC = () => {
   return (
     <>
-      <Section className="p-x-0 mb-20">
+      <Section id={"about"} className="p-x-0">
         <Section.Title title="Appetizer Restaurant" subtitle="About" />
         <div className="max-w-2xl -mt-12">
           <Section.Paragraph className="text-center">
